@@ -4,8 +4,13 @@
  1. Extract aspects from reviews and define the category for each aspect: Whole, Service, Food,Interior and Price
  2. Classify the sentiment of each aspect in to positive, negative, neutral or both
  
- For both subtasks multiligual deberta was used. The first task was solved as token classification problem. 
- The second task was solved as sequence classification. The input for the model was the concatenation of aspect and
+ ### The Dataset.
+ The dataset consists of 284 restaurent reviews written in Russian. For each review the extracted aspects are provided, 
+ each label has a category tag: Whole, Service, Interior, Food, Price and a sentiment tag: Neutral, Negative, Positive, Both
+ 
+ ## Solution
+ For both subtasks [`multiligual deberta`](https://huggingface.co/microsoft/mdeberta-v3-base) was used. The first task was solved as token classification problem. 
+ The second task was solved as sequence classification problem. The input for the model was the concatenation of aspect and
  the abstract of text with this aspect
  
  You may inference the models on your data with [`inference.py`](https://github.com/ZaitsevaDasha/Aspect-based-sentiment-analysis/blob/main/inference.py)
