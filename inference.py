@@ -13,7 +13,7 @@ def parse_args():
     parser.add_argument('--aspect_model_path', type=str)
     parser.add_argument('--sentiment_model_path', type=str)
     parser.add_argument('--device', type=str)
-    parser.add_argument('--text', type=str)
+    parser.add_argument('--path_to_review', type=str)
     args = parser.parse_args()
     return args
 
@@ -128,11 +128,13 @@ class SentimentClassificationPipeline():
         return pred_classes
     
 def main(args):
-    print(args.aspect_model_path)
     aspect_model = AutoModelForTokenClassification.from_pretrained(args.aspect_model_path, local_files_only=True, use_safetensors=True)
     tokenizer = AutoTokenizer.from_pretrained('microsoft/mdeberta-v3-base')
 
     device = args.device
+
+    with open(args.path_to_review, encoding='utf-8') as f:
+        review_text = f.read()
 
     tags = ['O']
     categories = ['Whole', 'Service', 'Food', 'Interior', 'Price']
@@ -142,13 +144,13 @@ def main(args):
     aspect_id2_label = {ind: tag for ind, tag in enumerate(tags)}
 
     aspect_pipeline = AspectExtractionPipeline(model=aspect_model, tokenizer=tokenizer, device=device, id2tag=aspect_id2_label)
-    aspects = aspect_pipeline.predict_classes(args.text)
+    aspects = aspect_pipeline.predict_classes(review_text)
 
     sent_model = AutoModelForSequenceClassification.from_pretrained(args.sentiment_model_path, local_files_only=True, use_safetensors=True )
     sent_id2label = {0: 'neutral', 1: 'negative', 2: 'positive'}
 
     sentiment_pipeline = SentimentClassificationPipeline(model=sent_model, tokenizer=tokenizer, device=device, id2tag=sent_id2label)
-    sentiment = sentiment_pipeline.predict_classes(aspects, args.text)
+    sentiment = sentiment_pipeline.predict_classes(aspects, review_text)
  
     result = []
     for ind in range(len(aspects)):
