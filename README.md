@@ -12,7 +12,7 @@
  The second task was solved as sequence classification problem. The input for the model was the concatenation of aspect and
  the abstract of text containing this aspect, the aim of the model was to predict the sentiment in respect to this aspect.
  
- You may inference the models on your data with [`inference.py`](https://github.com/ZaitsevaDasha/Aspect-based-sentiment-analysis/blob/main/inference.py)
+ You may perform inference on your data with [`inference.py`](https://github.com/ZaitsevaDasha/Aspect-based-sentiment-analysis/blob/main/inference.py)
  ```
  python inference.py --aspect_model_path <path_to_aspect_model> --sentiment_model_path <path_to_sentiment_model> --path_to_review <path_to_review>
  ```
