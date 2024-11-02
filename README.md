@@ -3,7 +3,7 @@
  1. Extract aspects from reviews and define the category for each aspect: Whole, Service, Food,Interior and Price
  2. Classify the sentiment of each aspect.
  
- ### The Dataset.
+ ## The Dataset.
  Our dataset consists of 284 restaurent reviews written in Russian. For each review the extracted aspects are provided, 
  each aspect has a category tag: Whole, Service, Interior, Food, Price and a sentiment tag: Neutral, Negative, Positive, Both
  
